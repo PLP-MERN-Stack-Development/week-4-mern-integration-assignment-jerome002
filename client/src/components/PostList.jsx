@@ -2,15 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function PostList({ posts = [] }) {
-  if (!posts.length) return <p>No posts available.</p>;
+  if (!posts.length) return <p className="text-gray-600 text-center mt-10">No posts available.</p>;
 
   return (
-    <div>
+    <div className="grid gap-6 mt-6">
       {posts.map(post => (
-        <div key={post._id} style={{ border: '1px solid #ddd', marginBottom: '1rem', padding: '1rem' }}>
-          <h3>{post.title}</h3>
-          <p>{post.excerpt || post.content.slice(0, 100)}...</p>
-          <Link to={`/posts/${post._id}`}>Read more</Link>
+        <div
+          key={post._id}
+          className="bg-white rounded-2xl shadow p-6 hover:shadow-md transition"
+        >
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">{post.title}</h3>
+          <p className="text-gray-600 mb-4">
+            {post.excerpt || post.content.slice(0, 100)}...
+          </p>
+          <Link
+            to={`/posts/${post._id}`}
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Read more →
+          </Link>
         </div>
       ))}
     </div>

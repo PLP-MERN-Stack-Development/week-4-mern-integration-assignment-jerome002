@@ -10,6 +10,7 @@ function PostForm({ initialData = {}, onSubmit, submitLabel = 'Submit' }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    // Fetch categories once
     fetch(`${import.meta.env.VITE_API_URL}/categories`)
       .then(res => res.json())
       .then(data => setCategories(data))
@@ -26,12 +27,7 @@ function PostForm({ initialData = {}, onSubmit, submitLabel = 'Submit' }) {
   };
 
   return (
-    <form 
-      onSubmit={handleSubmit} 
-      className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md space-y-4"
-    >
-      <h2 className="text-2xl font-bold text-center">Create / Edit Post</h2>
-
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         name="title"
@@ -39,8 +35,7 @@ function PostForm({ initialData = {}, onSubmit, submitLabel = 'Submit' }) {
         value={form.title}
         onChange={handleChange}
         required
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+      /><br />
 
       <textarea
         name="content"
@@ -48,29 +43,21 @@ function PostForm({ initialData = {}, onSubmit, submitLabel = 'Submit' }) {
         value={form.content}
         onChange={handleChange}
         required
-        rows="6"
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+      /><br />
 
       <select
         name="category"
         value={form.category}
         onChange={handleChange}
         required
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         <option value="">Select Category</option>
         {categories.map(cat => (
           <option value={cat._id} key={cat._id}>{cat.name}</option>
         ))}
-      </select>
+      </select><br />
 
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
-      >
-        {submitLabel}
-      </button>
+      <button type="submit">{submitLabel}</button>
     </form>
   );
 }
